@@ -2,3 +2,5 @@
 *.sdf
 Debug
 Pacman/Debug
+Pacman.VC.db
+*.opendb
