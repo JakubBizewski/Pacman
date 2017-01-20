@@ -1,6 +1,3 @@
-/*This source code copyrighted by Lazy Foo' Productions (2004-2015)
-and may not be redistributed without written permission.*/
-
 //Using SDL, standard IO, and strings
 #include <SDL.h>
 #include <stdio.h>
@@ -41,7 +38,7 @@ bool init()
 	}
 
 	//Create renderer
-	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
+	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (gRenderer == NULL)
 	{
 		// Create software renderer if we couldn't create hardware accelerated one.
@@ -120,7 +117,7 @@ int main(int argc, char* args[])
 		logo.Render(0, 0);
 
 		//Update the surface
-		SDL_UpdateWindowSurface(gWindow);
+		SDL_RenderPresent(gRenderer);
 	}
 
 	//Free resources and close SDL

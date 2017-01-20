@@ -16,6 +16,10 @@ Texture::~Texture()
 
 bool Texture::Load(std::string path)
 {
+	// Return if the renderer was not set
+	if (Renderer == NULL)
+		return false;
+
 	// Load image to a surface
 	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
 	if (loadedSurface == NULL)
