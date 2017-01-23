@@ -2,6 +2,7 @@
 
 #include<string>
 #include<SDL.h>
+#include<SDL_ttf.h>
 //#include<SDL_image.h>
 
 class Texture
@@ -18,7 +19,7 @@ public:
 	bool LoadFromImage(std::string path, Uint8 r = 0, Uint8 g = 0, Uint8 b = 0);
 
 	// Load texture from rendered text
-	bool LoadFromRenderedText(std::string text, SDL_Color textColor);
+	bool LoadFromRenderedText(TTF_Font* font, std::string text, SDL_Color textColor);
 
 	// Render the texture
 	void Render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip renderFlip = SDL_FLIP_NONE);

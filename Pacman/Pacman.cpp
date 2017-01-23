@@ -164,3 +164,23 @@ void Pacman::Free()
 {
 	pacmanTexture.Free();
 }
+
+MoveDirection Pacman::GetMoveDirection()
+{
+	return moveDir;
+}
+
+SDL_Rect Pacman::GetCollider()
+{
+	return collider;
+}
+
+SDL_Point Pacman::GetPosition()
+{
+	return position;
+}
+
+bool Pacman::IsMoving()
+{
+	return moving;
+}

@@ -21,7 +21,7 @@ public:
 	static const int Width = 25;
 	static const int Height = 25;
 
-	// How many frames does the move animatation consist of
+	// Number of frames in movment animation
 	static const int MoveFrames = 2;
 
 	// Movement per frame
@@ -56,6 +56,9 @@ public:
 
 	// Returns position
 	SDL_Point GetPosition();
+
+	// Returns true if pacman is moving
+	bool IsMoving();
 
 private:
 	Texture pacmanTexture;
