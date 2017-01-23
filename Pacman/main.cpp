@@ -1,36 +1,34 @@
 //Using SDL, standard IO, and strings
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <string>
 
 #include "Texture.h"
+#include "Pacman.h"
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+//const int SCREEN_WIDTH = 640;
+//const int SCREEN_HEIGHT = 480;
 
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
 
-//The surface contained by the window
-SDL_Surface* gScreenSurface = NULL;
-
 SDL_Renderer* gRenderer = NULL;
 
-// Textures
-Texture logo;
+Pacman gPacman;
 
 bool init()
 {
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+		printf("SDL could not initialized! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
 
 	//Create window
-	gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	gWindow = SDL_CreateWindow("Pacman", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (gWindow == NULL)
 	{
 		printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -42,6 +40,7 @@ bool init()
 	if (gRenderer == NULL)
 	{
 		// Create software renderer if we couldn't create hardware accelerated one.
+		// TODO: Works too fast, need a frame cap
 		gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_SOFTWARE);
 		
 		if (gRenderer == NULL)
@@ -51,17 +50,27 @@ bool init()
 		}
 	}
 
-	Texture::Renderer = gRenderer;
+	//Set texture filtering to linear
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+	{
+		printf("Warning: Linear texture filtering not enabled!");
+	}
 
-	//Get window surface
-	gScreenSurface = SDL_GetWindowSurface(gWindow);
+	//Initialize SDL_ttf module
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialized! TTF Error: %s\n", TTF_GetError());
+		return false;
+	}
+
+	Texture::Renderer = gRenderer;
 
 	return true;
 }
 
 bool loadMedia()
 {
-	if (!logo.Load("./Resources/logo.bmp"))
+	if (!gPacman.LoadMedia())
 		return false;
 
 	return true;
@@ -69,7 +78,7 @@ bool loadMedia()
 
 void close()
 {
-	logo.Free();
+	gPacman.Free();
 
 	//Destroy window
 	SDL_DestroyWindow(gWindow);
@@ -77,6 +86,7 @@ void close()
 
 	//Quit SDL subsystems
 	SDL_Quit();
+	TTF_Quit();
 }
 
 int main(int argc, char* args[])
@@ -92,7 +102,9 @@ int main(int argc, char* args[])
 	if (!loadMedia())
 	{
 		printf("Failed to load media!\n");
-		return -1;
+		close();
+
+		return -2;
 	}
 
 	//Main loop flag
@@ -112,9 +124,17 @@ int main(int argc, char* args[])
 			{
 				quit = true;
 			}
+
+			gPacman.HandleEvents(&e);
 		}
 
-		logo.Render(0, 0);
+		gPacman.Update();
+
+		// Fill the screen with black
+		SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
+		SDL_RenderClear(gRenderer);
+
+		gPacman.Render();
 
 		//Update the surface
 		SDL_RenderPresent(gRenderer);

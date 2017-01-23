@@ -14,8 +14,11 @@ Texture::~Texture()
 	Free();
 }
 
-bool Texture::Load(std::string path)
+bool Texture::LoadFromImage(std::string path, Uint8 r, Uint8 g, Uint8 b)
 {
+	// Free the previous texture
+	Free();
+
 	// Return if the renderer was not set
 	if (Renderer == NULL)
 		return false;
@@ -27,6 +30,9 @@ bool Texture::Load(std::string path)
 		printf("Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
 		return false;
 	}
+
+	// Set color key
+	SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, r, g, b));
 
 	// Create texture from the surface
 	texture = SDL_CreateTextureFromSurface(Texture::Renderer, loadedSurface);
@@ -46,7 +52,7 @@ bool Texture::Load(std::string path)
 	return true;
 }
 
-void Texture::Render(int x, int y, SDL_Rect* clip)
+void Texture::Render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip renderFlip)
 {
 	// Return if the renderer was not set
 	if (Renderer == NULL)
@@ -60,7 +66,22 @@ void Texture::Render(int x, int y, SDL_Rect* clip)
 		renderQuad.h = clip->h;
 	}
 
-	SDL_RenderCopy(Renderer, texture, clip, &renderQuad);
+	SDL_RenderCopyEx(Renderer, texture, clip, &renderQuad, angle, center, renderFlip);
+}
+
+void Texture::SetColor(Uint8 red, Uint8 green, Uint8 blue)
+{
+	SDL_SetTextureColorMod(texture, red, green, blue);
+}
+
+void Texture::SetBlendMode(SDL_BlendMode blendMode)
+{
+	SDL_SetTextureBlendMode(texture, blendMode);
+}
+
+void Texture::SetAlpha(Uint8 alpha)
+{
+	SDL_SetTextureAlphaMod(texture, alpha);
 }
 
 void Texture::Free()

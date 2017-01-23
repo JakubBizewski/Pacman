@@ -15,10 +15,22 @@ public:
 	~Texture();
 
 	// Load texture from file
-	bool Load(std::string path);
+	bool LoadFromImage(std::string path, Uint8 r = 0, Uint8 g = 0, Uint8 b = 0);
+
+	// Load texture from rendered text
+	bool LoadFromRenderedText(std::string text, SDL_Color textColor);
 
 	// Render the texture
-	void Render(int x, int y, SDL_Rect* clip = NULL);
+	void Render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip renderFlip = SDL_FLIP_NONE);
+
+	// Set color
+	void SetColor(Uint8 red, Uint8 green, Uint8 blue);
+
+	// Set blend mode
+	void SetBlendMode(SDL_BlendMode blendMode);
+
+	// Set alpha
+	void SetAlpha(Uint8 alpha);
 
 	// Free assets
 	void Free();

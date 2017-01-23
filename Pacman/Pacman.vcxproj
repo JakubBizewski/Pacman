@@ -39,8 +39,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\SDL2_image-2.0.1\include;..\SDL2-2.0.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\SDL2_image-2.0.1\lib\x86;..\SDL2-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\SDL2_ttf-2.0.14\include;..\SDL2_image-2.0.1\include;..\SDL2-2.0.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\SDL2_ttf-2.0.14\lib\x86;..\SDL2_image-2.0.1\lib\x86;..\SDL2-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>..\SDL2_image-2.0.1\include;..\SDL2-2.0.5\include;$(IncludePath)</IncludePath>
@@ -55,7 +55,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -76,10 +76,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SDL-1.2.15\include\SDL.h" />
+    <ClInclude Include="Pacman.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
