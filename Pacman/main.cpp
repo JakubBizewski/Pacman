@@ -1,11 +1,14 @@
 //Using SDL, standard IO, and strings
-#include <SDL.h>
-#include <SDL_ttf.h>
 #include <stdio.h>
 #include <string>
+#include <vector>
+#include <algorithm>
 
+#include <SDL.h>
+#include <SDL_ttf.h>
 #include "Texture.h"
 #include "Pacman.h"
+#include "Misc.h"
 
 //Screen dimension constants
 //const int SCREEN_WIDTH = 640;
@@ -16,7 +19,10 @@ SDL_Window* gWindow = NULL;
 
 SDL_Renderer* gRenderer = NULL;
 
+std::vector<GameObject*> gGameObjectList;
+
 Pacman gPacman;
+Pacman gPacman2;
 
 bool init()
 {
@@ -73,12 +79,21 @@ bool loadMedia()
 	if (!gPacman.LoadMedia())
 		return false;
 
+	if (!gPacman2.LoadMedia())
+		return false;
+
+	gPacman2.SetPos(20, 80);
+
+	gGameObjectList.push_back(&gPacman);
+	gGameObjectList.push_back(&gPacman2);
+
 	return true;
 }
 
 void close()
 {
-	gPacman.Free();
+	for (unsigned int i = 0; i < gGameObjectList.size(); i++)
+		gGameObjectList[i]->Free();
 
 	//Destroy window
 	SDL_DestroyWindow(gWindow);
@@ -125,16 +140,22 @@ int main(int argc, char* args[])
 				quit = true;
 			}
 
-			gPacman.HandleEvents(&e);
+			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p)
+				removeFromVector(gGameObjectList, gPacman2);
+
+			for (unsigned int i = 0; i < gGameObjectList.size(); i++)
+				gGameObjectList[i]->HandleEvents(&e);
 		}
 
-		gPacman.Update();
+		for (unsigned int i = 0; i < gGameObjectList.size(); i++)
+			gGameObjectList[i]->Update();
 
 		// Fill the screen with black
 		SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(gRenderer);
 
-		gPacman.Render();
+		for (unsigned int i = 0; i < gGameObjectList.size(); i++)
+			gGameObjectList[i]->Render();
 
 		//Update the surface
 		SDL_RenderPresent(gRenderer);

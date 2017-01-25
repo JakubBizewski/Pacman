@@ -10,6 +10,7 @@ class Texture
 public:
 	// Static SDL_Renderer so we don't have to ask for it
 	// when creating the texture or when rendering
+	// TODO: Temporary solution, should be removed after implementation of Game class
 	static SDL_Renderer* Renderer;
 
 	Texture();

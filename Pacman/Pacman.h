@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include "Texture.h"
+#include "GameObject.h"
 
 #pragma once
 
@@ -14,7 +15,7 @@ enum MoveDirection {
 	MOVE_RIGHT
 };
 
-class Pacman
+class Pacman : public GameObject
 {
 public:
 	// Prefixed width and height of Pacman
