@@ -6,6 +6,12 @@ Tile::Tile()
 	pPacman = NULL;
 }
 
+void Tile::SetPos(int x, int y)
+{
+	position.x = x;
+	position.y = y;
+}
+
 void Tile::SetPacman(Pacman* pacman)
 {
 	pPacman = pacman;

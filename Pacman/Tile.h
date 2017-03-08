@@ -12,6 +12,8 @@ public:
 	// Sets pointer to Pacman in the tile
 	void SetPacman(Pacman* pacman);
 
+	void SetPos(int x, int y);
+
 	// Returns pointer to Pacman in the tile
 	Pacman* GetPacman();
 

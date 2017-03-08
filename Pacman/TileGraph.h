@@ -5,8 +5,11 @@
 class TileGraph
 {
 public:
+	TileGraph();
 	TileGraph(int w, int h);
 	~TileGraph();
+
+	void Setup(int w, int h);
 
 	Tile* GetTileAt(int x, int y);
 

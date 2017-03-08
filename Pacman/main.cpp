@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "Pacman.h"
 #include "Misc.h"
+#include "TileGraph.h"
 
 //Screen dimension constants
 //const int SCREEN_WIDTH = 640;
@@ -21,8 +22,9 @@ SDL_Renderer* gRenderer = NULL;
 
 std::vector<GameObject*> gGameObjectList;
 
+TileGraph gTileGraph(10, 10);
+
 Pacman gPacman;
-Pacman gPacman2;
 
 bool init()
 {
@@ -79,13 +81,13 @@ bool loadMedia()
 	if (!gPacman.LoadMedia())
 		return false;
 
-	if (!gPacman2.LoadMedia())
-		return false;
+	//gPacman2.SetPos(20, 80);
 
-	gPacman2.SetPos(20, 80);
+	Pacman::tileGraph = &gTileGraph;
+
+	gPacman.SetTile(gTileGraph.GetTileAt(1, 1));
 
 	gGameObjectList.push_back(&gPacman);
-	gGameObjectList.push_back(&gPacman2);
 
 	return true;
 }
@@ -139,9 +141,6 @@ int main(int argc, char* args[])
 			{
 				quit = true;
 			}
-
-			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p)
-				removeFromVector(gGameObjectList, gPacman2);
 
 			for (unsigned int i = 0; i < gGameObjectList.size(); i++)
 				gGameObjectList[i]->HandleEvents(&e);

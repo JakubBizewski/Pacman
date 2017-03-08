@@ -1,6 +1,10 @@
 #include <SDL.h>
 #include "Texture.h"
 #include "GameObject.h"
+#include "Tile.h"
+#include "TileGraph.h"
+
+#include<algorithm>
 
 #pragma once
 
@@ -12,12 +16,15 @@ enum MoveDirection {
 	MOVE_UP,
 	MOVE_DOWN,
 	MOVE_LEFT,
-	MOVE_RIGHT
+	MOVE_RIGHT,
+	MOVE_STILL
 };
 
 class Pacman : public GameObject
 {
 public:
+	static TileGraph* tileGraph;
+
 	// Prefixed width and height of Pacman
 	static const int Width = 25;
 	static const int Height = 25;
@@ -35,7 +42,10 @@ public:
 	bool LoadMedia();
 
 	// Sets postiton of pacman
-	void SetPos(int x, int y);
+	// void SetPos(int x, int y);
+	void SetTile(Tile* newTile);
+
+	void SetNextTile(Tile* newNextTile);
 
 	// Handles key presses
 	void HandleEvents(SDL_Event* event);
@@ -58,6 +68,9 @@ public:
 	// Returns position
 	SDL_Point GetPosition();
 
+	Tile* GetTile();
+	Tile* GetNextTile();
+
 	// Returns true if pacman is moving
 	bool IsMoving();
 
@@ -72,8 +85,12 @@ private:
 	int frame, frameCount;
 
 	MoveDirection moveDir;
+	MoveDirection nextDir;
 	bool moving;
 	SDL_Point position;
+
+	Tile* currTile;
+	Tile* nextTile;
 
 	SDL_Rect collider;
 };
