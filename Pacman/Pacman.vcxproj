@@ -81,6 +81,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileGraph.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SDL-1.2.15\include\SDL.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileGraph.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\hello_world.bmp" />

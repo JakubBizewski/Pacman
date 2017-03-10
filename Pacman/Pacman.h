@@ -1,10 +1,10 @@
+#include <algorithm>
+
 #include <SDL.h>
 #include "Texture.h"
 #include "GameObject.h"
 #include "Tile.h"
 #include "TileGraph.h"
-
-#include<algorithm>
 
 #pragma once
 
@@ -36,6 +36,7 @@ public:
 	static const int Velocity = 3;
 
 	Pacman();
+	Pacman(Tile* tile);
 	~Pacman();
 
 	// Loads texture and sets up animation clips
@@ -43,8 +44,11 @@ public:
 
 	// Sets postiton of pacman
 	// void SetPos(int x, int y);
+
+	// Sets the tile of the pacman
 	void SetTile(Tile* newTile);
 
+	// Sets the next tile (to which pacman will go)
 	void SetNextTile(Tile* newNextTile);
 
 	// Handles key presses
@@ -68,13 +72,20 @@ public:
 	// Returns position
 	SDL_Point GetPosition();
 
+	// Returns pacman's tile
 	Tile* GetTile();
+
+	// Returns the tile which pacman is going to
 	Tile* GetNextTile();
 
 	// Returns true if pacman is moving
 	bool IsMoving();
 
 private:
+	// Trys to move the pacman in desired direction
+	// Returns true if successful, false otherwise
+	bool TryToMove(MoveDirection direction);
+
 	Texture pacmanTexture;
 
 	SDL_Rect upAnimClips[2];

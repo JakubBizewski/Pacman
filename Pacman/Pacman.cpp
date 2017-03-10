@@ -21,6 +21,35 @@ Pacman::Pacman()
 	frameCount = 0;
 }
 
+Pacman::Pacman(Tile* tile)
+{
+	// Set all variables to default state
+	currTile = tile;
+	nextTile = NULL;
+
+	if (currTile != NULL)
+	{
+		currTile->SetPacman(this);
+
+		position.x = currTile->GetPosition().x * Width;
+		position.y = currTile->GetPosition().y * Height;
+	}
+	else
+	{
+		position.x = 0;
+		position.y = 0;
+	}
+
+	collider.w = Width;
+	collider.h = Height;
+
+	moveDir = MOVE_RIGHT;
+	nextDir = MOVE_RIGHT;
+
+	frame = 0;
+	frameCount = 0;
+}
+
 Pacman::~Pacman()
 {
 	Free();
@@ -34,7 +63,18 @@ Pacman::~Pacman()
 
 void Pacman::SetTile(Tile* newTile)
 {
+	if (currTile != NULL)
+		currTile->SetPacman(NULL);
+
 	currTile = newTile;
+	
+	if (currTile != NULL)
+	{
+		currTile->SetPacman(this);
+
+		position.x = currTile->GetPosition().x * Width;
+		position.y = currTile->GetPosition().y * Height;
+	}
 }
 
 void Pacman::SetNextTile(Tile* newNextTile)
@@ -91,6 +131,41 @@ bool Pacman::LoadMedia()
 	return true;
 }
 
+bool Pacman::TryToMove(MoveDirection direction)
+{
+	Tile* destTile = NULL;
+
+	switch (direction)
+	{
+	case MOVE_UP:
+		destTile = tileGraph->GetTileAt(currTile->GetPosition().x, currTile->GetPosition().y - 1);
+		break;
+	case MOVE_DOWN:
+		destTile = tileGraph->GetTileAt(currTile->GetPosition().x, currTile->GetPosition().y + 1);
+		break;
+	case MOVE_LEFT:
+		destTile = tileGraph->GetTileAt(currTile->GetPosition().x - 1, currTile->GetPosition().y);
+		break;
+	case MOVE_RIGHT:
+		destTile = tileGraph->GetTileAt(currTile->GetPosition().x + 1, currTile->GetPosition().y);
+		break;
+	}
+
+	if (destTile == NULL) {
+		SetNextTile(NULL);
+		return false;
+	}
+
+	if (destTile->GetWall() != NULL) {
+		SetNextTile(NULL);
+		return false;
+	}
+
+	SetNextTile(destTile);
+
+	return true;
+}
+
 void Pacman::Update()
 {
 	if (moving)
@@ -107,24 +182,10 @@ void Pacman::Update()
 
 	if (nextTile == currTile || nextTile == NULL)
 	{
-		moveDir = nextDir;
-
-		switch (moveDir)
-		{
-		case MOVE_UP:
-			nextTile = tileGraph->GetTileAt(currTile->GetPosition().x, currTile->GetPosition().y - 1);
-			break;
-		case MOVE_DOWN:
-			nextTile = tileGraph->GetTileAt(currTile->GetPosition().x, currTile->GetPosition().y + 1);
-			break;
-		case MOVE_LEFT:
-			nextTile = tileGraph->GetTileAt(currTile->GetPosition().x - 1, currTile->GetPosition().y);
-			break;
-		case MOVE_RIGHT:
-			nextTile = tileGraph->GetTileAt(currTile->GetPosition().x + 1, currTile->GetPosition().y);
-			//printf("Next tile up");
-			break;
-		}
+		if (nextDir != moveDir && TryToMove(nextDir))
+			moveDir = nextDir;
+		else
+			TryToMove(moveDir);
 
 		if (nextTile == NULL)
 			moving = false;
@@ -150,10 +211,10 @@ void Pacman::Update()
 		}
 
 		if ((moveDir == MOVE_DOWN || moveDir == MOVE_UP) && position.y == nextTile->GetPosition().y * Height)
-			currTile = nextTile;
+			SetTile(nextTile);
 
 		if ((moveDir == MOVE_LEFT || moveDir == MOVE_RIGHT) && position.x == nextTile->GetPosition().x * Width)
-			currTile = nextTile;
+			SetTile(nextTile);
 	}
 }
 

@@ -8,6 +8,7 @@
 #include <SDL_ttf.h>
 #include "Texture.h"
 #include "Pacman.h"
+#include "Wall.h"
 #include "Misc.h"
 #include "TileGraph.h"
 
@@ -25,6 +26,8 @@ std::vector<GameObject*> gGameObjectList;
 TileGraph gTileGraph(10, 10);
 
 Pacman gPacman;
+Wall gWall;
+Wall gWall2;
 
 bool init()
 {
@@ -81,12 +84,23 @@ bool loadMedia()
 	if (!gPacman.LoadMedia())
 		return false;
 
+	if (!gWall.LoadMedia())
+		return false;
+
+	if (!gWall2.LoadMedia())
+		return false;
+
 	//gPacman2.SetPos(20, 80);
 
 	Pacman::tileGraph = &gTileGraph;
+	Wall::tileGraph = &gTileGraph;
 
 	gPacman.SetTile(gTileGraph.GetTileAt(1, 1));
+	gWall.SetTile(gTileGraph.GetTileAt(5, 5));
+	gWall2.SetTile(gTileGraph.GetTileAt(6, 5));
 
+	gGameObjectList.push_back(&gWall);
+	gGameObjectList.push_back(&gWall2);
 	gGameObjectList.push_back(&gPacman);
 
 	return true;

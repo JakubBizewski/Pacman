@@ -9,8 +9,10 @@ public:
 	TileGraph(int w, int h);
 	~TileGraph();
 
+	// (Re)Creates all tiles
 	void Setup(int w, int h);
 
+	// Returns tile at given position
 	Tile* GetTileAt(int x, int y);
 
 private:
