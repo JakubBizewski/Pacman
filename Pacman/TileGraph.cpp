@@ -12,10 +12,8 @@ TileGraph::TileGraph(int w, int h)
 {
 	tiles = new Tile[w*h];
 
-	for (int y = 0; y < h; y++)
-	{
-		for (int x = 0; x < w; x++)
-		{
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) {
 			tiles[x + (y*w)].SetPos(x, y);
 		}
 	}
@@ -31,10 +29,8 @@ void TileGraph::Setup(int w, int h)
 
 	tiles = new Tile[w*h];
 
-	for (int y = 0; y < h; y++)
-	{
-		for (int x = 0; x < w; x++)
-		{
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) {
 			tiles[x + (y*w)].SetPos(x, y);
 		}
 	}

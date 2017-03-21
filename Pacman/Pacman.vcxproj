@@ -78,6 +78,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pacman.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileGraph.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Misc.h" />
     <ClInclude Include="Pacman.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileGraph.h" />

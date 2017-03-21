@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "Pacman.h"
 #include "Wall.h"
+#include "Point.h"
 #include "Misc.h"
 #include "TileGraph.h"
 
@@ -28,6 +29,7 @@ TileGraph gTileGraph(10, 10);
 Pacman gPacman;
 Wall gWall;
 Wall gWall2;
+Point gPoint;
 
 bool init()
 {
@@ -90,18 +92,24 @@ bool loadMedia()
 	if (!gWall2.LoadMedia())
 		return false;
 
+	if (!gPoint.LoadMedia())
+		return false;
+
 	//gPacman2.SetPos(20, 80);
 
 	Pacman::tileGraph = &gTileGraph;
 	Wall::tileGraph = &gTileGraph;
+	Point::tileGraph = &gTileGraph;
 
 	gPacman.SetTile(gTileGraph.GetTileAt(1, 1));
 	gWall.SetTile(gTileGraph.GetTileAt(5, 5));
 	gWall2.SetTile(gTileGraph.GetTileAt(6, 5));
+	gPoint.SetTile(gTileGraph.GetTileAt(6, 6));
 
 	gGameObjectList.push_back(&gWall);
 	gGameObjectList.push_back(&gWall2);
 	gGameObjectList.push_back(&gPacman);
+	gGameObjectList.push_back(&gPoint);
 
 	return true;
 }
@@ -147,6 +155,14 @@ int main(int argc, char* args[])
 	//While application is running
 	while (!quit)
 	{
+		// Remove all objects marked for deletion from gameobjects vector
+		for (unsigned int i = 0; i < gGameObjectList.size(); i++) {
+			if (gGameObjectList[i]->ToDelete()) {
+				gGameObjectList[i]->Free();
+				removeFromVector(gGameObjectList, *gGameObjectList[i]);
+			}
+		}
+
 		//Handle events on queue
 		while (SDL_PollEvent(&e) != 0)
 		{
@@ -158,6 +174,9 @@ int main(int argc, char* args[])
 
 			for (unsigned int i = 0; i < gGameObjectList.size(); i++)
 				gGameObjectList[i]->HandleEvents(&e);
+
+			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p)
+				gWall.Delete();
 		}
 
 		for (unsigned int i = 0; i < gGameObjectList.size(); i++)

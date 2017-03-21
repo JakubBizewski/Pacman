@@ -27,15 +27,13 @@ Pacman::Pacman(Tile* tile)
 	currTile = tile;
 	nextTile = NULL;
 
-	if (currTile != NULL)
-	{
+	if (currTile != NULL) {
 		currTile->SetPacman(this);
 
 		position.x = currTile->GetPosition().x * Width;
 		position.y = currTile->GetPosition().y * Height;
 	}
-	else
-	{
+	else {
 		position.x = 0;
 		position.y = 0;
 	}
@@ -68,8 +66,7 @@ void Pacman::SetTile(Tile* newTile)
 
 	currTile = newTile;
 	
-	if (currTile != NULL)
-	{
+	if (currTile != NULL) {
 		currTile->SetPacman(this);
 
 		position.x = currTile->GetPosition().x * Width;
@@ -84,8 +81,7 @@ void Pacman::SetNextTile(Tile* newNextTile)
 
 void Pacman::HandleEvents(SDL_Event* event)
 {
-	if (event->type == SDL_KEYDOWN && event->key.repeat == 0)
-	{
+	if (event->type == SDL_KEYDOWN && event->key.repeat == 0) {
 		switch (event->key.keysym.sym)
 		{
 		// Move up
@@ -168,20 +164,17 @@ bool Pacman::TryToMove(MoveDirection direction)
 
 void Pacman::Update()
 {
-	if (moving)
-	{
+	if (moving) {
 		frameCount++;
 		frame = frameCount / 8;
 
-		if (frame > MoveFrames - 1)
-		{
+		if (frame > MoveFrames - 1) {
 			frame = 0;
 			frameCount = 0;
 		}
 	}
 
-	if (nextTile == currTile || nextTile == NULL)
-	{
+	if (nextTile == currTile || nextTile == NULL) {
 		if (nextDir != moveDir && TryToMove(nextDir))
 			moveDir = nextDir;
 		else
@@ -192,8 +185,7 @@ void Pacman::Update()
 		else
 			moving = true;
 	}
-	else
-	{
+	else {
 		switch (moveDir)
 		{
 		case MOVE_UP:
@@ -239,6 +231,14 @@ void Pacman::Render()
 	}
 
 	pacmanTexture.Render(position.x, position.y, animClip);
+}
+
+void Pacman::Delete()
+{
+	// Calling the base function
+	GameObject::Delete();
+
+	currTile->SetPacman(NULL);
 }
 
 void Pacman::Free()

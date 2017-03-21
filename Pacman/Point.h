@@ -4,7 +4,7 @@
 #include "Texture.h"
 #include "TileGraph.h"
 
-class Wall : public GameObject
+class Point : public GameObject
 {
 public:
 	static TileGraph* tileGraph;
@@ -13,9 +13,9 @@ public:
 	static const int Width = 25;
 	static const int Height = 25;
 
-	Wall();
-	Wall(Tile* tile);
-	~Wall();
+	Point();
+	Point(Tile* tile);
+	~Point();
 
 	// Loads texture and sets up animation clips
 	bool LoadMedia();
@@ -23,20 +23,14 @@ public:
 	// Sets the tile of the wall
 	void SetTile(Tile* newTile);
 
-	// Handles key presses
-	//void HandleEvents(SDL_Event* event);
-
-	// Updates the posititon and check collision
-	//void Update();
-
-	// Mark the object to be deleted
-	void Delete();
-
-	// Renders the wall
+	// Renders pacman
 	void Render();
 
 	// Releases texture memory
 	void Free();
+
+	// Mark the object to be deleted
+	void Delete();
 
 	// Returns collider
 	SDL_Rect GetCollider();
@@ -48,7 +42,7 @@ public:
 	Tile* GetTile();
 
 private:
-	Texture wallTexture;
+	Texture pointTexture;
 
 	SDL_Point position;
 

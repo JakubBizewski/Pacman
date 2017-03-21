@@ -11,5 +11,14 @@ public:
 	virtual void Render();
 	virtual void Free();
 	virtual SDL_Rect* GetColliders();
+
+	// Mark the object to be deleted
+	virtual void Delete();
+
+	// Returns true if the objects is marked for deletion
+	bool ToDelete();
+
+private:
+	bool toDelete;
 };
 

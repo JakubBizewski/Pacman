@@ -25,8 +25,7 @@ bool Texture::LoadFromImage(std::string path, Uint8 r, Uint8 g, Uint8 b)
 
 	// Load image to a surface
 	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
 		return false;
 	}
@@ -36,8 +35,7 @@ bool Texture::LoadFromImage(std::string path, Uint8 r, Uint8 g, Uint8 b)
 
 	// Create texture from the surface
 	texture = SDL_CreateTextureFromSurface(Texture::Renderer, loadedSurface);
-	if (texture == NULL)
-	{
+	if (texture == NULL) {
 		printf("Unable to create texture from surface %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
 		return false;
 	}
@@ -63,16 +61,14 @@ bool Texture::LoadFromRenderedText(TTF_Font* font, std::string text, SDL_Color t
 
 	// Render the text using SDL_ttf library
 	SDL_Surface* loadedSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
-	if (loadedSurface == NULL)
-	{
+	if (loadedSurface == NULL) {
 		printf("Unable to render text! SDL_ttf Error: %s\n", TTF_GetError());
 		return false;
 	}
 
 	// Create a texture from generated surface
 	texture = SDL_CreateTextureFromSurface(Texture::Renderer, loadedSurface);
-	if (texture == NULL)
-	{
+	if (texture == NULL) {
 		printf("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
@@ -95,8 +91,7 @@ void Texture::Render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* cent
 
 	SDL_Rect renderQuad = { x, y, GetWidth(), GetHeight() };
 
-	if (clip != NULL)
-	{
+	if (clip != NULL) {
 		renderQuad.w = clip->w;
 		renderQuad.h = clip->h;
 	}
@@ -121,8 +116,7 @@ void Texture::SetAlpha(Uint8 alpha)
 
 void Texture::Free()
 {
-	if (texture != NULL)
-	{
+	if (texture != NULL) {
 		// Free the texture and set its pointer to NULL
 		SDL_DestroyTexture(texture);
 		texture = NULL;

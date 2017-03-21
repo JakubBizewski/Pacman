@@ -18,15 +18,13 @@ Wall::Wall(Tile* tile)
 {
 	currTile = tile;
 
-	if (currTile != NULL)
-	{
+	if (currTile != NULL) {
 		currTile->SetWall(this);
 
 		position.x = currTile->GetPosition().x * Width;
 		position.y = currTile->GetPosition().y * Height;
 	}
-	else
-	{
+	else {
 		position.x = 0;
 		position.y = 0;
 	}
@@ -47,13 +45,20 @@ void Wall::SetTile(Tile* newTile)
 
 	currTile = newTile;
 
-	if (currTile != NULL)
-	{
+	if (currTile != NULL) {
 		currTile->SetWall(this);
 
 		position.x = currTile->GetPosition().x * Width;
 		position.y = currTile->GetPosition().y * Height;
 	}
+}
+
+void Wall::Delete()
+{
+	// Calling base function
+	GameObject::Delete();
+
+	currTile->SetWall(NULL);
 }
 
 bool Wall::LoadMedia()

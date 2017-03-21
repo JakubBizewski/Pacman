@@ -60,6 +60,9 @@ public:
 	// Renders pacman
 	void Render();
 
+	// Mark the object to be deleted
+	void Delete();
+
 	// Releases texture memory
 	void Free();
 

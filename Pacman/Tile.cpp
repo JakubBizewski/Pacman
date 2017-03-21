@@ -3,15 +3,19 @@
 Tile::Tile()
 {
 	position = { 0,0 };
+
 	pPacman = NULL;
 	pWall = NULL;
+	pPoint = NULL;
 }
 
 Tile::Tile(int x, int y)
 {
 	position = { x,y };
+
 	pPacman = NULL;
 	pWall = NULL;
+	pPoint = NULL;
 }
 
 void Tile::SetPos(int x, int y)
@@ -30,6 +34,11 @@ void Tile::SetWall(Wall* wall)
 	pWall = wall;
 }
 
+void Tile::SetPoint(Point* point)
+{
+	pPoint = point;
+}
+
 Pacman* Tile::GetPacman()
 {
 	return pPacman;
@@ -38,6 +47,11 @@ Pacman* Tile::GetPacman()
 Wall* Tile::GetWall()
 {
 	return pWall;
+}
+
+Point* Tile::GetPoint()
+{
+	return pPoint;
 }
 
 SDL_Point Tile::GetPosition()

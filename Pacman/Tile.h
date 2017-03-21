@@ -4,6 +4,7 @@
 
 class Pacman;
 class Wall;
+class Point;
 
 class Tile
 {
@@ -17,6 +18,9 @@ public:
 	// Sets pointer to wall in the tile
 	void SetWall(Wall* wall);
 
+	// Sets pointer to point in the tile
+	void SetPoint(Point* wall);
+
 	// Sets position of the tile
 	void SetPos(int x, int y);
 
@@ -25,6 +29,9 @@ public:
 	
 	// Returns pointer to wall in the tile
 	Wall* GetWall();
+
+	// Returns pointer to wall in the tile
+	Point* GetPoint();
 
 	// Returns position of the tile
 	SDL_Point GetPosition();
@@ -36,5 +43,6 @@ private:
 
 	Pacman* pPacman;
 	Wall* pWall;
+	Point* pPoint;
 };
 
