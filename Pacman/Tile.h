@@ -9,6 +9,9 @@ class Point;
 class Tile
 {
 public:
+	const static int Width = 25;
+	const static int Height = 25;
+
 	Tile();
 	Tile(int x, int y);
 

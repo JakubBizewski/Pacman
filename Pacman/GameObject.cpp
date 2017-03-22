@@ -4,8 +4,8 @@ void GameObject::HandleEvents(SDL_Event* event) {}
 void GameObject::Update() {}
 void GameObject::Render() {}
 void GameObject::Free() {}
-SDL_Rect* GameObject::GetColliders() { return NULL; }
-
+SDL_Rect GameObject::GetCollider() { return { 0,0,0,0 }; }
+ 
 void GameObject::Delete()
 {
 	toDelete = true;

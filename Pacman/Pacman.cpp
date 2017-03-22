@@ -69,8 +69,8 @@ void Pacman::SetTile(Tile* newTile)
 	if (currTile != NULL) {
 		currTile->SetPacman(this);
 
-		position.x = currTile->GetPosition().x * Width;
-		position.y = currTile->GetPosition().y * Height;
+		position.x = currTile->GetPosition().x * Tile::Width;
+		position.y = currTile->GetPosition().y * Tile::Height;
 	}
 }
 
@@ -164,11 +164,25 @@ bool Pacman::TryToMove(MoveDirection direction)
 
 bool Pacman::CheckForCollision(const SDL_Rect &otherCollider)
 {
-	if (collider.x + collider.w > otherCollider.w)
+	if (otherCollider.x > collider.x + collider.w) {
+		printf("1");
 		return false;
+	}
 
-	if (collider.y + collider.h > otherCollider.h)
+	if (otherCollider.y > collider.y + collider.h) {
+		printf("2");
 		return false;
+	}
+
+	if (otherCollider.x + otherCollider.w < collider.x) {
+		printf("3");
+		return false;
+	}
+
+	if (otherCollider.y + otherCollider.h < collider.y) {
+		printf("4");
+		return false;
+	}
 
 	return true;
 }
@@ -209,23 +223,26 @@ void Pacman::Update()
 		switch (moveDir)
 		{
 		case MOVE_UP:
-			position.y = std::max(position.y - Velocity, nextTile->GetPosition().y * Height);
+			position.y = std::max(position.y - Velocity, nextTile->GetPosition().y * Tile::Height);
 			break;
 		case MOVE_DOWN:
-			position.y = std::min(position.y + Velocity, nextTile->GetPosition().y * Height);
+			position.y = std::min(position.y + Velocity, nextTile->GetPosition().y * Tile::Height);
 			break;
 		case MOVE_LEFT:
-			position.x = std::max(position.x - Velocity, nextTile->GetPosition().x * Width);
+			position.x = std::max(position.x - Velocity, nextTile->GetPosition().x * Tile::Width);
 			break;
 		case MOVE_RIGHT:
-			position.x = std::min(position.x + Velocity, nextTile->GetPosition().x * Width);
+			position.x = std::min(position.x + Velocity, nextTile->GetPosition().x * Tile::Width);
 			break;
 		}
 
-		if ((moveDir == MOVE_DOWN || moveDir == MOVE_UP) && position.y == nextTile->GetPosition().y * Height)
+		collider.x = position.x;
+		collider.y = position.y;
+
+		if ((moveDir == MOVE_DOWN || moveDir == MOVE_UP) && position.y == nextTile->GetPosition().y * Tile::Height)
 			SetTile(nextTile);
 
-		if ((moveDir == MOVE_LEFT || moveDir == MOVE_RIGHT) && position.x == nextTile->GetPosition().x * Width)
+		if ((moveDir == MOVE_LEFT || moveDir == MOVE_RIGHT) && position.x == nextTile->GetPosition().x * Tile::Width)
 			SetTile(nextTile);
 	}
 }

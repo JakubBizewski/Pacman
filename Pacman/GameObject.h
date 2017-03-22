@@ -10,7 +10,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void Free();
-	virtual SDL_Rect* GetColliders();
+	virtual SDL_Rect GetCollider();
 
 	// Mark the object to be deleted
 	virtual void Delete();

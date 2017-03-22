@@ -10,8 +10,8 @@ public:
 	static TileGraph* tileGraph;
 
 	// Prefixed width and height of a wall
-	static const int Width = 25;
-	static const int Height = 25;
+	static const int Width = 11;
+	static const int Height = 11;
 
 	Point();
 	Point(Tile* tile);

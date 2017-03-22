@@ -20,8 +20,8 @@ Point::Point(Tile* tile)
 	if (currTile != NULL) {
 		currTile->SetPoint(this);
 
-		position.x = currTile->GetPosition().x * Width;
-		position.y = currTile->GetPosition().y * Height;
+		position.x = currTile->GetPosition().x * Tile::Width + 7;
+		position.y = currTile->GetPosition().y * Tile::Width + 7;
 	}
 	else {
 		position.x = 0;
@@ -30,6 +30,9 @@ Point::Point(Tile* tile)
 
 	collider.w = Width;
 	collider.h = Height;
+
+	collider.x = position.x;
+	collider.y = position.y;
 }
 
 Point::~Point()
@@ -47,14 +50,17 @@ void Point::SetTile(Tile* newTile)
 	if (currTile != NULL) {
 		currTile->SetPoint(this);
 
-		position.x = currTile->GetPosition().x * Width;
-		position.y = currTile->GetPosition().y * Height;
+		position.x = currTile->GetPosition().x * Tile::Width + 7;
+		position.y = currTile->GetPosition().y * Tile::Height + 7;
+
+		collider.x = position.x;
+		collider.y = position.y;
 	}
 }
 
 bool Point::LoadMedia()
 {
-	if (!pointTexture.LoadFromImage("./Resources/point.bmp"))
+	if (!pointTexture.LoadFromImage("./Resources/point2.bmp"))
 		return false;
 
 	return true;
