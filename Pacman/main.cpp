@@ -29,7 +29,7 @@ TileGraph gTileGraph(10, 10);
 Pacman gPacman;
 Wall gWall;
 Wall gWall2;
-Point gPoint;
+Point gPoint[100];
 
 bool init()
 {
@@ -92,8 +92,10 @@ bool loadMedia()
 	if (!gWall2.LoadMedia())
 		return false;
 
-	if (!gPoint.LoadMedia())
-		return false;
+	for (int i = 0; i < 20; i++) {
+		if (!gPoint[i].LoadMedia())
+			return false;
+	}
 
 	//gPacman2.SetPos(20, 80);
 
@@ -104,12 +106,22 @@ bool loadMedia()
 	gPacman.SetTile(gTileGraph.GetTileAt(1, 1));
 	gWall.SetTile(gTileGraph.GetTileAt(5, 5));
 	gWall2.SetTile(gTileGraph.GetTileAt(6, 5));
-	gPoint.SetTile(gTileGraph.GetTileAt(6, 6));
+
+	for (int i = 0; i < 10; i++) {
+		gPoint[i].SetTile(gTileGraph.GetTileAt(i, 6));
+	}
+	for (int i = 10; i < 20; i++) {
+		gPoint[i].SetTile(gTileGraph.GetTileAt(i-10, 7));
+	}
 
 	gGameObjectList.push_back(&gWall);
 	gGameObjectList.push_back(&gWall2);
+
+	for (int i = 0; i < 20; i++) {
+		gGameObjectList.push_back(&gPoint[i]);
+	}
+
 	gGameObjectList.push_back(&gPacman);
-	gGameObjectList.push_back(&gPoint);
 
 	return true;
 }

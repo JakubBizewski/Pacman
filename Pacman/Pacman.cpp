@@ -162,8 +162,27 @@ bool Pacman::TryToMove(MoveDirection direction)
 	return true;
 }
 
+bool Pacman::CheckForCollision(const SDL_Rect &otherCollider)
+{
+	if (collider.x + collider.w > otherCollider.w)
+		return false;
+
+	if (collider.y + collider.h > otherCollider.h)
+		return false;
+
+	return true;
+}
+
 void Pacman::Update()
 {
+	// Check for collision with point
+	if (currTile->GetPoint() != NULL) {
+		if (CheckForCollision(currTile->GetPoint()->GetCollider())) {
+			currTile->GetPoint()->Delete();
+		}
+	}
+
+	// Animation of pacman
 	if (moving) {
 		frameCount++;
 		frame = frameCount / 8;
@@ -173,7 +192,8 @@ void Pacman::Update()
 			frameCount = 0;
 		}
 	}
-
+	
+	// Change of tile/movement
 	if (nextTile == currTile || nextTile == NULL) {
 		if (nextDir != moveDir && TryToMove(nextDir))
 			moveDir = nextDir;

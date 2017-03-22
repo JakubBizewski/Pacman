@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Tile.h"
 #include "TileGraph.h"
+#include "Point.h"
 
 #pragma once
 
@@ -88,6 +89,9 @@ private:
 	// Trys to move the pacman in desired direction
 	// Returns true if successful, false otherwise
 	bool TryToMove(MoveDirection direction);
+
+	// Check if pacman is colliding with other collider
+	bool CheckForCollision(const SDL_Rect &otherCollider);
 
 	Texture pacmanTexture;
 
