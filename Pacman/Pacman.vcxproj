@@ -77,6 +77,7 @@
   <ItemGroup>
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -87,6 +88,7 @@
   <ItemGroup>
     <ClInclude Include="..\SDL-1.2.15\include\SDL.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="Misc.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="Point.h" />

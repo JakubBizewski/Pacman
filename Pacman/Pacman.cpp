@@ -165,22 +165,47 @@ bool Pacman::TryToMove(MoveDirection direction)
 bool Pacman::CheckForCollision(const SDL_Rect &otherCollider)
 {
 	if (otherCollider.x > collider.x + collider.w) {
-		printf("1");
+		//printf("1");
 		return false;
 	}
 
 	if (otherCollider.y > collider.y + collider.h) {
-		printf("2");
+		//printf("2");
 		return false;
 	}
 
 	if (otherCollider.x + otherCollider.w < collider.x) {
-		printf("3");
+		//printf("3");
 		return false;
 	}
 
 	if (otherCollider.y + otherCollider.h < collider.y) {
-		printf("4");
+		//printf("4");
+		return false;
+	}
+
+	return true;
+}
+
+bool Pacman::CheckForCollision(const SDL_Rect &collider, const SDL_Rect &otherCollider)
+{
+	if (otherCollider.x > collider.x + collider.w) {
+		//printf("1");
+		return false;
+	}
+
+	if (otherCollider.y > collider.y + collider.h) {
+		//printf("2");
+		return false;
+	}
+
+	if (otherCollider.x + otherCollider.w < collider.x) {
+		//printf("3");
+		return false;
+	}
+
+	if (otherCollider.y + otherCollider.h < collider.y) {
+		//printf("4");
 		return false;
 	}
 
@@ -190,9 +215,17 @@ bool Pacman::CheckForCollision(const SDL_Rect &otherCollider)
 void Pacman::Update()
 {
 	// Check for collision with point
-	if (currTile->GetPoint() != NULL) {
-		if (CheckForCollision(currTile->GetPoint()->GetCollider())) {
-			currTile->GetPoint()->Delete();
+	// NOTE: Should this be nextTile?
+	if (currTile != NULL && currTile->GetPoint() != NULL) {
+		SDL_Rect eatingHole = {
+			position.x + Point::Margin,
+			position.y + Point::Margin,
+			Point::Width,
+			Point::Height,
+		};
+
+		if (CheckForCollision(eatingHole, nextTile->GetPoint()->GetCollider())) {
+			nextTile->GetPoint()->Delete();
 		}
 	}
 

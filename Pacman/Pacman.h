@@ -93,6 +93,9 @@ private:
 	// Check if pacman is colliding with other collider
 	bool CheckForCollision(const SDL_Rect &otherCollider);
 
+	// Check if given collider is colliding with another collider
+	bool CheckForCollision(const SDL_Rect &collider, const SDL_Rect &otherCollider);
+
 	Texture pacmanTexture;
 
 	SDL_Rect upAnimClips[2];

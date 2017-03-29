@@ -20,8 +20,8 @@ Point::Point(Tile* tile)
 	if (currTile != NULL) {
 		currTile->SetPoint(this);
 
-		position.x = currTile->GetPosition().x * Tile::Width + 7;
-		position.y = currTile->GetPosition().y * Tile::Width + 7;
+		position.x = currTile->GetPosition().x * Tile::Width + Margin;
+		position.y = currTile->GetPosition().y * Tile::Width + Margin;
 	}
 	else {
 		position.x = 0;
@@ -50,8 +50,8 @@ void Point::SetTile(Tile* newTile)
 	if (currTile != NULL) {
 		currTile->SetPoint(this);
 
-		position.x = currTile->GetPosition().x * Tile::Width + 7;
-		position.y = currTile->GetPosition().y * Tile::Height + 7;
+		position.x = currTile->GetPosition().x * Tile::Width + Margin;
+		position.y = currTile->GetPosition().y * Tile::Height + Margin;
 
 		collider.x = position.x;
 		collider.y = position.y;

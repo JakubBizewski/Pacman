@@ -1,0 +1,6 @@
+20,20
+xxxxxxxxxxxxxxxx
+x..............x
+x..............x
+x.x.x.x.x.x.x..x
+x..x.x.x.x.x.x.x
