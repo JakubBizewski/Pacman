@@ -14,9 +14,11 @@ Wall::Wall()
 	collider.h = Height;
 }
 
-Wall::Wall(Tile* tile)
+Wall::Wall(Tile* tile, Texture* texture)
 {
 	currTile = tile;
+
+	wallTexture = texture;
 
 	if (currTile != NULL) {
 		currTile->SetWall(this);
@@ -63,20 +65,17 @@ void Wall::Delete()
 
 bool Wall::LoadMedia()
 {
-	if (!wallTexture.LoadFromImage("./Resources/wall.bmp"))
-		return false;
-
 	return true;
 }
 
 void Wall::Render()
 {
-	wallTexture.Render(position.x, position.y);
+	wallTexture->Render(position.x, position.y);
 }
 
 void Wall::Free()
 {
-	wallTexture.Free();
+
 }
 
 SDL_Rect Wall::GetCollider()

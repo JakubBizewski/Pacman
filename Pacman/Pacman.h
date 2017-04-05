@@ -37,7 +37,7 @@ public:
 	static const int Velocity = 3;
 
 	Pacman();
-	Pacman(Tile* tile);
+	Pacman(Tile* tile, Texture* texture);
 	~Pacman();
 
 	// Loads texture and sets up animation clips
@@ -96,7 +96,7 @@ private:
 	// Check if given collider is colliding with another collider
 	bool CheckForCollision(const SDL_Rect &collider, const SDL_Rect &otherCollider);
 
-	Texture pacmanTexture;
+	Texture* pacmanTexture;
 
 	SDL_Rect upAnimClips[2];
 	SDL_Rect downAnimClips[2];

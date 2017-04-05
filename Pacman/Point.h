@@ -16,7 +16,7 @@ public:
 	static const int Margin = 11;
 
 	Point();
-	Point(Tile* tile);
+	Point(Tile* tile, Texture* texture);
 	~Point();
 
 	// Loads texture and sets up animation clips
@@ -44,7 +44,7 @@ public:
 	Tile* GetTile();
 
 private:
-	Texture pointTexture;
+	Texture* pointTexture;
 
 	SDL_Point position;
 

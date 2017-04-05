@@ -21,7 +21,7 @@ Pacman::Pacman()
 	frameCount = 0;
 }
 
-Pacman::Pacman(Tile* tile)
+Pacman::Pacman(Tile* tile, Texture* texture)
 {
 	// Set all variables to default state
 	currTile = tile;
@@ -43,6 +43,8 @@ Pacman::Pacman(Tile* tile)
 
 	moveDir = MOVE_RIGHT;
 	nextDir = MOVE_RIGHT;
+
+	pacmanTexture = texture;
 
 	frame = 0;
 	frameCount = 0;
@@ -105,8 +107,10 @@ void Pacman::HandleEvents(SDL_Event* event)
 
 bool Pacman::LoadMedia()
 {
-	if (!pacmanTexture.LoadFromImage("./Resources/PacMan.bmp"))
+	/*
+	if (!pacmanTexture->LoadFromImage("./Resources/PacMan.bmp"))
 		return false;
+	*/
 
 	// Leftward movment animation clips
 	leftAnimClips[0] = { 0,0,25,25 };
@@ -300,7 +304,7 @@ void Pacman::Render()
 		break;
 	}
 
-	pacmanTexture.Render(position.x, position.y, animClip);
+	pacmanTexture->Render(position.x, position.y, animClip);
 }
 
 void Pacman::Delete()
@@ -313,7 +317,7 @@ void Pacman::Delete()
 
 void Pacman::Free()
 {
-	pacmanTexture.Free();
+	//pacmanTexture.Free();
 }
 
 MoveDirection Pacman::GetMoveDirection()

@@ -14,7 +14,7 @@ public:
 	static const int Height = 25;
 
 	Wall();
-	Wall(Tile* tile);
+	Wall(Tile* tile, Texture* texture);
 	~Wall();
 
 	// Loads texture and sets up animation clips
@@ -48,7 +48,7 @@ public:
 	Tile* GetTile();
 
 private:
-	Texture wallTexture;
+	Texture* wallTexture;
 
 	SDL_Point position;
 

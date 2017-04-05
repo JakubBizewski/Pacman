@@ -12,6 +12,8 @@
 #include "Point.h"
 #include "Misc.h"
 #include "TileGraph.h"
+#include "MapGenerator.h"
+#include "TextureManager.h"
 
 //Screen dimension constants
 //const int SCREEN_WIDTH = 640;
@@ -19,17 +21,15 @@
 
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
-
 SDL_Renderer* gRenderer = NULL;
+
+TextureManager gTextureManager;
 
 std::vector<GameObject*> gGameObjectList;
 
 TileGraph gTileGraph(10, 10);
 
-Pacman gPacman;
-Wall gWall;
-Wall gWall2;
-Point gPoint[100];
+MapGenerator gMapGenerator(&gTileGraph, &gTextureManager);
 
 bool init()
 {
@@ -83,45 +83,13 @@ bool init()
 
 bool loadMedia()
 {
-	if (!gPacman.LoadMedia())
-		return false;
-
-	if (!gWall.LoadMedia())
-		return false;
-
-	if (!gWall2.LoadMedia())
-		return false;
-
-	for (int i = 0; i < 20; i++) {
-		if (!gPoint[i].LoadMedia())
-			return false;
-	}
+	gMapGenerator.Load("./Resources/mapa.txt");
 
 	//gPacman2.SetPos(20, 80);
 
 	Pacman::tileGraph = &gTileGraph;
 	Wall::tileGraph = &gTileGraph;
 	Point::tileGraph = &gTileGraph;
-
-	gPacman.SetTile(gTileGraph.GetTileAt(1, 1));
-	gWall.SetTile(gTileGraph.GetTileAt(5, 5));
-	gWall2.SetTile(gTileGraph.GetTileAt(6, 5));
-
-	for (int i = 0; i < 10; i++) {
-		gPoint[i].SetTile(gTileGraph.GetTileAt(i, 6));
-	}
-	for (int i = 10; i < 20; i++) {
-		gPoint[i].SetTile(gTileGraph.GetTileAt(i-10, 7));
-	}
-
-	gGameObjectList.push_back(&gWall);
-	gGameObjectList.push_back(&gWall2);
-
-	for (int i = 0; i < 20; i++) {
-		gGameObjectList.push_back(&gPoint[i]);
-	}
-
-	gGameObjectList.push_back(&gPacman);
 
 	return true;
 }
@@ -186,9 +154,6 @@ int main(int argc, char* args[])
 
 			for (unsigned int i = 0; i < gGameObjectList.size(); i++)
 				gGameObjectList[i]->HandleEvents(&e);
-
-			if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p)
-				gWall.Delete();
 		}
 
 		for (unsigned int i = 0; i < gGameObjectList.size(); i++)
@@ -199,7 +164,7 @@ int main(int argc, char* args[])
 		SDL_RenderClear(gRenderer);
 
 		for (unsigned int i = 0; i < gGameObjectList.size(); i++)
-			gGameObjectList[i]->Render();
+			//gGameObjectList[i]->Render();
 
 		//Update the surface
 		SDL_RenderPresent(gRenderer);

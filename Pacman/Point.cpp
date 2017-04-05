@@ -13,9 +13,11 @@ Point::Point()
 	collider.h = Height;
 }
 
-Point::Point(Tile* tile)
+Point::Point(Tile* tile, Texture* texture)
 {
 	currTile = tile;
+
+	pointTexture = texture;
 
 	if (currTile != NULL) {
 		currTile->SetPoint(this);
@@ -60,20 +62,17 @@ void Point::SetTile(Tile* newTile)
 
 bool Point::LoadMedia()
 {
-	if (!pointTexture.LoadFromImage("./Resources/point2.bmp"))
-		return false;
-
 	return true;
 }
 
 void Point::Render()
 {
-	pointTexture.Render(position.x, position.y);
+	pointTexture->Render(position.x, position.y);
 }
 
 void Point::Free()
 {
-	pointTexture.Free();
+
 }
 
 void Point::Delete()
