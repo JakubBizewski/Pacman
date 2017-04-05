@@ -1,13 +1,8 @@
 #include "TextureManager.h"
 
-TextureManager::TextureManager()
-{
-
-}
-
 void TextureManager::Add(std::string key, Texture* texture)
 {
-	texturesMap.insert(std::make_pair(key, texture));
+	texturesMap[key] = texture;
 }
 
 Texture* TextureManager::Get(std::string key)
@@ -19,6 +14,7 @@ void TextureManager::Free()
 {
 	for (auto &pair : texturesMap) {
 		delete pair.second;
+		texturesMap.erase(pair.first);
 	}
 }
 

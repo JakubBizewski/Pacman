@@ -17,8 +17,10 @@ class MapGenerator
 public:
 	MapGenerator(TileGraph* tileGraph, TextureManager* textureManager);
 
+	// Load map file and generate all objects
 	bool Load(std::string path);
 
+	// Populate a GameObject* vector with all the generated objects
 	void Populate(std::vector<GameObject*>& vector);
 
 private:

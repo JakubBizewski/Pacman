@@ -10,8 +10,11 @@ TileGraph::TileGraph()
 
 TileGraph::TileGraph(int w, int h)
 {
+	// Create a dynamic array of Tiles
 	tiles = new Tile[w*h];
 
+	// Set position of all tiles
+	// NOTE: This could propably be also made with constructor
 	for (int y = 0; y < h; y++) {
 		for (int x = 0; x < w; x++) {
 			tiles[x + (y*w)].SetPos(x, y);
@@ -24,11 +27,14 @@ TileGraph::TileGraph(int w, int h)
 
 void TileGraph::Setup(int w, int h)
 {
+	// If the TileGraph is not empty, empty it
 	if (tiles != NULL)
 		delete[] tiles;
 
 	tiles = new Tile[w*h];
 
+	// Set position of all tiles
+	// NOTE: This could propably be also made with constructor
 	for (int y = 0; y < h; y++) {
 		for (int x = 0; x < w; x++) {
 			tiles[x + (y*w)].SetPos(x, y);

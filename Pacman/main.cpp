@@ -6,6 +6,7 @@
 
 #include <SDL.h>
 #include <SDL_ttf.h>
+
 #include "Texture.h"
 #include "Pacman.h"
 #include "Wall.h"
@@ -27,7 +28,7 @@ TextureManager gTextureManager;
 
 std::vector<GameObject*> gGameObjectList;
 
-TileGraph gTileGraph(10, 10);
+TileGraph gTileGraph(20, 20);
 
 MapGenerator gMapGenerator(&gTileGraph, &gTextureManager);
 
@@ -83,10 +84,31 @@ bool init()
 
 bool loadMedia()
 {
-	gMapGenerator.Load("./Resources/mapa.txt");
+	// Load texture
+	Texture* wallTexture = new Texture();
+	if (!wallTexture->LoadFromImage("./Resources/wall.bmp"))
+		return false;
 
-	//gPacman2.SetPos(20, 80);
+	Texture* pointTexture = new Texture();
+	if (!pointTexture->LoadFromImage("./Resources/point2.bmp"))
+		return false;
 
+	Texture* pacmanTexture = new Texture();
+	if (!pacmanTexture->LoadFromImage("./Resources/PacMan.bmp"))
+		return false;
+
+	gTextureManager.Add("wall", wallTexture);
+	gTextureManager.Add("point", pointTexture);
+	gTextureManager.Add("pacman", pacmanTexture);
+
+	// Load map
+	if (!gMapGenerator.Load("./Resources/mapa.txt"))
+		return false;
+
+	gMapGenerator.Populate(gGameObjectList);
+
+	// Set static variables for objects
+	// NOTE: Should this be changed?
 	Pacman::tileGraph = &gTileGraph;
 	Wall::tileGraph = &gTileGraph;
 	Point::tileGraph = &gTileGraph;
@@ -97,7 +119,9 @@ bool loadMedia()
 void close()
 {
 	for (unsigned int i = 0; i < gGameObjectList.size(); i++)
-		gGameObjectList[i]->Free();
+		delete gGameObjectList[i];
+
+	gTextureManager.Free();
 
 	//Destroy window
 	SDL_DestroyWindow(gWindow);
@@ -138,7 +162,7 @@ int main(int argc, char* args[])
 		// Remove all objects marked for deletion from gameobjects vector
 		for (unsigned int i = 0; i < gGameObjectList.size(); i++) {
 			if (gGameObjectList[i]->ToDelete()) {
-				gGameObjectList[i]->Free();
+				delete gGameObjectList[i];
 				removeFromVector(gGameObjectList, *gGameObjectList[i]);
 			}
 		}
@@ -164,7 +188,7 @@ int main(int argc, char* args[])
 		SDL_RenderClear(gRenderer);
 
 		for (unsigned int i = 0; i < gGameObjectList.size(); i++)
-			//gGameObjectList[i]->Render();
+			gGameObjectList[i]->Render();
 
 		//Update the surface
 		SDL_RenderPresent(gRenderer);

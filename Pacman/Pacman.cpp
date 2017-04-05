@@ -48,6 +48,8 @@ Pacman::Pacman(Tile* tile, Texture* texture)
 
 	frame = 0;
 	frameCount = 0;
+
+	LoadMedia();
 }
 
 Pacman::~Pacman()
@@ -135,6 +137,7 @@ bool Pacman::TryToMove(MoveDirection direction)
 {
 	Tile* destTile = NULL;
 
+	// Get destination tile depening on the direction of movment
 	switch (direction)
 	{
 	case MOVE_UP:
@@ -151,11 +154,13 @@ bool Pacman::TryToMove(MoveDirection direction)
 		break;
 	}
 
+	// If the tile's NULL, we can't go there
 	if (destTile == NULL) {
 		SetNextTile(NULL);
 		return false;
 	}
 
+	// If the tile has got a wall in it, we can't go there
 	if (destTile->GetWall() != NULL) {
 		SetNextTile(NULL);
 		return false;

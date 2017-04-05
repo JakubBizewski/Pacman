@@ -1,5 +1,15 @@
-xxxxxxxxxxxxxxxx
-x..............x
-x..............x
-x.x.x.x.x.x.x..x
-x..x.x.x.x.x.x.x
+xxxxxxxxxxxxxxxxxxxx
+x..................x
+x.xxxxxxxxxxxxxxxx.x
+x.x              x.x
+x.xxxxxxxxxxxxxxxx.x
+xp.................x
+x.x.x.x.x.x.x.x.xx.x
+x.x.x.x.x.x.x.x.xx.x
+x.x.x.x.x.x.x.x.xx.x
+x.xxxxxxxxxxxxxxxx.x
+x..................x
+x..................x
+x..................x
+x..................x
+x..x..x..x..x..x..xx
