@@ -1,5 +1,7 @@
 #include "GameObject.h"
 
+TileGraph* GameObject::tileGraph = NULL;
+
 void GameObject::HandleEvents(SDL_Event* event) {}
 void GameObject::Update() {}
 void GameObject::Render() {}

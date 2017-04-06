@@ -1,22 +1,21 @@
 #include "Wall.h"
 
-TileGraph* Wall::tileGraph = NULL;
+//Wall::Wall()
+//{
+//	currTile = NULL;
+//
+//	position.x = 0;
+//	position.y = 0;
+//
+//	collider.w = Width;
+//	collider.h = Height;
+//}
 
-
-Wall::Wall()
-{
-	currTile = NULL;
-
-	position.x = 0;
-	position.y = 0;
-
-	collider.w = Width;
-	collider.h = Height;
-}
-
-Wall::Wall(Tile* tile)
+Wall::Wall(Tile* tile, Texture* texture)
 {
 	currTile = tile;
+
+	wallTexture = texture;
 
 	if (currTile != NULL) {
 		currTile->SetWall(this);
@@ -61,22 +60,9 @@ void Wall::Delete()
 	currTile->SetWall(NULL);
 }
 
-bool Wall::LoadMedia()
-{
-	if (!wallTexture.LoadFromImage("./Resources/wall.bmp"))
-		return false;
-
-	return true;
-}
-
 void Wall::Render()
 {
-	wallTexture.Render(position.x, position.y);
-}
-
-void Wall::Free()
-{
-	wallTexture.Free();
+	wallTexture->Render(position.x, position.y);
 }
 
 SDL_Rect Wall::GetCollider()

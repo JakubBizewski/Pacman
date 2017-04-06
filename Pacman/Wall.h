@@ -7,27 +7,28 @@
 class Wall : public GameObject
 {
 public:
-	static TileGraph* tileGraph;
+	//static TileGraph* tileGraph;
 
 	// Prefixed width and height of a wall
 	static const int Width = 25;
 	static const int Height = 25;
 
-	Wall();
-	Wall(Tile* tile);
+	// Wall();
+
+	Wall(Tile* tile, Texture* texture);
 	~Wall();
 
 	// Loads texture and sets up animation clips
-	bool LoadMedia();
+	// bool LoadMedia();
 
 	// Sets the tile of the wall
 	void SetTile(Tile* newTile);
 
 	// Handles key presses
-	//void HandleEvents(SDL_Event* event);
+	// void HandleEvents(SDL_Event* event);
 
 	// Updates the posititon and check collision
-	//void Update();
+	// void Update();
 
 	// Mark the object to be deleted
 	void Delete();
@@ -36,7 +37,7 @@ public:
 	void Render();
 
 	// Releases texture memory
-	void Free();
+	// void Free();
 
 	// Returns collider
 	SDL_Rect GetCollider();
@@ -48,7 +49,7 @@ public:
 	Tile* GetTile();
 
 private:
-	Texture wallTexture;
+	Texture* wallTexture;
 
 	SDL_Point position;
 

@@ -3,9 +3,13 @@
 #include <SDL.h>
 #include <vector>
 
+class TileGraph;
+
 class GameObject
 {
 public:
+	static TileGraph* tileGraph;
+
 	virtual void HandleEvents(SDL_Event* event);
 	virtual void Update();
 	virtual void Render();

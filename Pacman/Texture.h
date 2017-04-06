@@ -1,9 +1,9 @@
 #pragma once
 
-#include<string>
-#include<SDL.h>
-#include<SDL_ttf.h>
-//#include<SDL_image.h>
+#include <string>
+#include <SDL.h>
+#include <SDL_ttf.h>
+// #include <SDL_image.h>
 
 class Texture
 {

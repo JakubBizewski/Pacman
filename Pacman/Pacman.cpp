@@ -1,27 +1,25 @@
 #include "Pacman.h"
 
-TileGraph* Pacman::tileGraph = NULL;
+//Pacman::Pacman()
+//{
+//	// Set all variables to default state
+//	currTile = NULL;
+//	nextTile = NULL;
+//
+//	position.x = 0;
+//	position.y = 0;
+//
+//	collider.w = Width;
+//	collider.h = Height;
+//
+//	moveDir = MOVE_RIGHT;
+//	nextDir = MOVE_RIGHT;
+//
+//	frame = 0;
+//	frameCount = 0;
+//}
 
-Pacman::Pacman()
-{
-	// Set all variables to default state
-	currTile = NULL;
-	nextTile = NULL;
-
-	position.x = 0;
-	position.y = 0;
-
-	collider.w = Width;
-	collider.h = Height;
-
-	moveDir = MOVE_RIGHT;
-	nextDir = MOVE_RIGHT;
-
-	frame = 0;
-	frameCount = 0;
-}
-
-Pacman::Pacman(Tile* tile)
+Pacman::Pacman(Tile* tile, Texture* texture)
 {
 	// Set all variables to default state
 	currTile = tile;
@@ -44,8 +42,12 @@ Pacman::Pacman(Tile* tile)
 	moveDir = MOVE_RIGHT;
 	nextDir = MOVE_RIGHT;
 
+	pacmanTexture = texture;
+
 	frame = 0;
 	frameCount = 0;
+
+	LoadMedia();
 }
 
 Pacman::~Pacman()
@@ -53,11 +55,11 @@ Pacman::~Pacman()
 	Free();
 }
 
-/*void Pacman::SetPos(int newX, int newY)
-{
-	position.x = newX;
-	position.y = newY;
-}*/
+//void Pacman::SetPos(int newX, int newY)
+//{
+//	position.x = newX;
+//	position.y = newY;
+//}
 
 void Pacman::SetTile(Tile* newTile)
 {
@@ -105,8 +107,8 @@ void Pacman::HandleEvents(SDL_Event* event)
 
 bool Pacman::LoadMedia()
 {
-	if (!pacmanTexture.LoadFromImage("./Resources/PacMan.bmp"))
-		return false;
+	//if (!pacmanTexture->LoadFromImage("./Resources/PacMan.bmp"))
+	//	return false;
 
 	// Leftward movment animation clips
 	leftAnimClips[0] = { 0,0,25,25 };
@@ -131,6 +133,7 @@ bool Pacman::TryToMove(MoveDirection direction)
 {
 	Tile* destTile = NULL;
 
+	// Get destination tile depening on the direction of movment
 	switch (direction)
 	{
 	case MOVE_UP:
@@ -147,11 +150,13 @@ bool Pacman::TryToMove(MoveDirection direction)
 		break;
 	}
 
+	// If the tile's NULL, we can't go there
 	if (destTile == NULL) {
 		SetNextTile(NULL);
 		return false;
 	}
 
+	// If the tile has got a wall in it, we can't go there
 	if (destTile->GetWall() != NULL) {
 		SetNextTile(NULL);
 		return false;
@@ -300,7 +305,7 @@ void Pacman::Render()
 		break;
 	}
 
-	pacmanTexture.Render(position.x, position.y, animClip);
+	pacmanTexture->Render(position.x, position.y, animClip);
 }
 
 void Pacman::Delete()
@@ -311,10 +316,10 @@ void Pacman::Delete()
 	currTile->SetPacman(NULL);
 }
 
-void Pacman::Free()
+/*void Pacman::Free()
 {
 	pacmanTexture.Free();
-}
+}*/
 
 MoveDirection Pacman::GetMoveDirection()
 {
