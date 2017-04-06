@@ -1,18 +1,15 @@
 #include "Wall.h"
 
-TileGraph* Wall::tileGraph = NULL;
-
-
-Wall::Wall()
-{
-	currTile = NULL;
-
-	position.x = 0;
-	position.y = 0;
-
-	collider.w = Width;
-	collider.h = Height;
-}
+//Wall::Wall()
+//{
+//	currTile = NULL;
+//
+//	position.x = 0;
+//	position.y = 0;
+//
+//	collider.w = Width;
+//	collider.h = Height;
+//}
 
 Wall::Wall(Tile* tile, Texture* texture)
 {
@@ -63,19 +60,9 @@ void Wall::Delete()
 	currTile->SetWall(NULL);
 }
 
-bool Wall::LoadMedia()
-{
-	return true;
-}
-
 void Wall::Render()
 {
 	wallTexture->Render(position.x, position.y);
-}
-
-void Wall::Free()
-{
-
 }
 
 SDL_Rect Wall::GetCollider()

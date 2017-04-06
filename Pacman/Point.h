@@ -7,7 +7,7 @@
 class Point : public GameObject
 {
 public:
-	static TileGraph* tileGraph;
+	//static TileGraph* tileGraph;
 
 	// Prefixed width and height of a wall
 	static const int Width = 3;
@@ -15,12 +15,13 @@ public:
 
 	static const int Margin = 11;
 
-	Point();
+	// Point();
+
 	Point(Tile* tile, Texture* texture);
 	~Point();
 
 	// Loads texture and sets up animation clips
-	bool LoadMedia();
+	// bool LoadMedia();
 
 	// Sets the tile of the wall
 	void SetTile(Tile* newTile);
@@ -29,7 +30,7 @@ public:
 	void Render();
 
 	// Releases texture memory
-	void Free();
+	// void Free();
 
 	// Mark the object to be deleted
 	void Delete();

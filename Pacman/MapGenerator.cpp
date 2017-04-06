@@ -8,11 +8,13 @@ MapGenerator::MapGenerator(TileGraph* tileGraph, TextureManager* textureManager)
 
 bool MapGenerator::Load(std::string path)
 {
+	// Create a file stream
 	std::fstream file;
 
 	// Open the file and check if successful
 	file.open(path.c_str(), std::ios::in);
 
+	// Return false if we failed to open the file
 	if (file.is_open() == false)
 		return false;
 
@@ -27,10 +29,6 @@ bool MapGenerator::Load(std::string path)
 		std::vector<char> chars(line.begin(), line.end());
 
 		for (unsigned int x = 0; x < chars.size(); x++) {
-			// If char is blank space, go to the next char
-			if (chars[x] == ' ')
-				continue;
-
 			GameObject* newObject = NULL;
 			Tile* tile = pTileGraph->GetTileAt(x, y);
 
@@ -39,22 +37,18 @@ bool MapGenerator::Load(std::string path)
 			{
 				case 'x':
 					newObject = new Wall(tile, pTextureManager->Get("wall"));
-					tile->SetWall((Wall*) newObject);
-
 					break;
 				case '.':
 					newObject = new Point(tile, pTextureManager->Get("point"));
-					tile->SetPoint((Point*) newObject);
-
 					break;
 				case 'p':
 					newObject = new Pacman(tile, pTextureManager->Get("pacman"));
-					tile->SetPacman((Pacman*) newObject);
-
 					break;
 			}
 
-			objectVector.push_back(newObject);
+			// If the object was created, add it to the vector
+			if (newObject != NULL)
+				objectVector.push_back(newObject);
 		}
 
 		y++;

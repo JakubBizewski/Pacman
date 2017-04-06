@@ -10,8 +10,8 @@
 #pragma once
 
 // Just a temporary solution
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+//const int SCREEN_WIDTH = 640;
+//const int SCREEN_HEIGHT = 480;
 
 enum MoveDirection {
 	MOVE_UP,
@@ -24,7 +24,7 @@ enum MoveDirection {
 class Pacman : public GameObject
 {
 public:
-	static TileGraph* tileGraph;
+	//static TileGraph* tileGraph;
 
 	// Prefixed width and height of Pacman
 	static const int Width = 25;
@@ -36,7 +36,8 @@ public:
 	// Movement per frame
 	static const int Velocity = 3;
 
-	Pacman();
+	// Pacman();
+
 	Pacman(Tile* tile, Texture* texture);
 	~Pacman();
 
@@ -65,7 +66,7 @@ public:
 	void Delete();
 
 	// Releases texture memory
-	void Free();
+	// void Free();
 
 	// Returns current direction of movement
 	MoveDirection GetMoveDirection();

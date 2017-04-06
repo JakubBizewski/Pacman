@@ -1,25 +1,23 @@
 #include "Pacman.h"
 
-TileGraph* Pacman::tileGraph = NULL;
-
-Pacman::Pacman()
-{
-	// Set all variables to default state
-	currTile = NULL;
-	nextTile = NULL;
-
-	position.x = 0;
-	position.y = 0;
-
-	collider.w = Width;
-	collider.h = Height;
-
-	moveDir = MOVE_RIGHT;
-	nextDir = MOVE_RIGHT;
-
-	frame = 0;
-	frameCount = 0;
-}
+//Pacman::Pacman()
+//{
+//	// Set all variables to default state
+//	currTile = NULL;
+//	nextTile = NULL;
+//
+//	position.x = 0;
+//	position.y = 0;
+//
+//	collider.w = Width;
+//	collider.h = Height;
+//
+//	moveDir = MOVE_RIGHT;
+//	nextDir = MOVE_RIGHT;
+//
+//	frame = 0;
+//	frameCount = 0;
+//}
 
 Pacman::Pacman(Tile* tile, Texture* texture)
 {
@@ -57,11 +55,11 @@ Pacman::~Pacman()
 	Free();
 }
 
-/*void Pacman::SetPos(int newX, int newY)
-{
-	position.x = newX;
-	position.y = newY;
-}*/
+//void Pacman::SetPos(int newX, int newY)
+//{
+//	position.x = newX;
+//	position.y = newY;
+//}
 
 void Pacman::SetTile(Tile* newTile)
 {
@@ -109,10 +107,8 @@ void Pacman::HandleEvents(SDL_Event* event)
 
 bool Pacman::LoadMedia()
 {
-	/*
-	if (!pacmanTexture->LoadFromImage("./Resources/PacMan.bmp"))
-		return false;
-	*/
+	//if (!pacmanTexture->LoadFromImage("./Resources/PacMan.bmp"))
+	//	return false;
 
 	// Leftward movment animation clips
 	leftAnimClips[0] = { 0,0,25,25 };
@@ -320,10 +316,10 @@ void Pacman::Delete()
 	currTile->SetPacman(NULL);
 }
 
-void Pacman::Free()
+/*void Pacman::Free()
 {
-	//pacmanTexture.Free();
-}
+	pacmanTexture.Free();
+}*/
 
 MoveDirection Pacman::GetMoveDirection()
 {
