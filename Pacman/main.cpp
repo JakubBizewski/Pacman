@@ -81,7 +81,7 @@ bool loadMedia()
 {
 	// Load textures
 	Texture* wallTexture = new Texture();
-	if (!wallTexture->LoadFromImage("./Resources/wall.bmp"))
+	if (!wallTexture->LoadFromImage("./Resources/wall_sprite.bmp"))
 		return false;
 
 	Texture* pointTexture = new Texture();
@@ -92,20 +92,22 @@ bool loadMedia()
 	if (!pacmanTexture->LoadFromImage("./Resources/PacMan.bmp"))
 		return false;
 
+	// Set static variables for objects
+	// NOTE: Should this be changed?
+	GameObject::tileGraph = &gTileGraph;
+
 	// Add loaded textures to a TextureManager
 	gTextureManager.Add("wall", wallTexture);
 	gTextureManager.Add("point", pointTexture);
 	gTextureManager.Add("pacman", pacmanTexture);
+
+	Wall::CreateClips();
 
 	// Load map
 	if (!gMapGenerator.Load("./Resources/mapa.txt"))
 		return false;
 
 	gMapGenerator.Populate(gGameObjectList);
-
-	// Set static variables for objects
-	// NOTE: Should this be changed?
-	GameObject::tileGraph = &gTileGraph;
 
 	return true;
 }

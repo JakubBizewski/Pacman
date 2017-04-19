@@ -59,6 +59,25 @@ Tile* TileGraph::GetTileAt(int x, int y)
 	return &tiles[index];
 }
 
+std::array<Tile*, 8> TileGraph::GetNeighbours(Tile* tile)
+{
+	std::array<Tile*, 8> neighbours;
+
+	int x = tile->GetPosition().x;
+	int y = tile->GetPosition().y;
+
+	neighbours[0] = GetTileAt(x, y + 1);		// N
+	neighbours[1] = GetTileAt(x + 1, y);		// E
+	neighbours[2] = GetTileAt(x, y - 1);		// S
+	neighbours[3] = GetTileAt(x - 1, y);		// W
+	neighbours[4] = GetTileAt(x + 1, y + 1);	// NE
+	neighbours[5] = GetTileAt(x - 1, y + 1);	// SE
+	neighbours[6] = GetTileAt(x - 1, y - 1);	// SW
+	neighbours[7] = GetTileAt(x + 1, y - 1);	// NW
+
+	return neighbours;
+}
+
 int TileGraph::GetIndex(int x, int y)
 {
 	if (x >= width || y >= height)

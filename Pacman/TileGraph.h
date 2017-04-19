@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include "Tile.h"
 
 class TileGraph
@@ -14,6 +15,17 @@ public:
 
 	// Returns tile at given position
 	Tile* GetTileAt(int x, int y);
+
+	// Returns neighbours of given tiles
+	// 0 - N
+	// 1 - E
+	// 2 - S
+	// 3 - W
+	// 4 - NE
+	// 5 - SE
+	// 6 - SW
+	// 7 - NW
+	std::array<Tile*, 8> GetNeighbours(Tile* tile);
 
 private:
 	Tile* tiles;
