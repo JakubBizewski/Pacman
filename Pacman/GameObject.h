@@ -16,11 +16,13 @@ public:
 	virtual void Free();
 	virtual SDL_Rect GetCollider();
 
+	virtual ~GameObject();
+
 	// Mark the object to be deleted
 	virtual void Delete();
 
 	// Returns true if the objects is marked for deletion
-	bool ToDelete();
+	bool ToDelete() const;
 
 private:
 	bool toDelete;
