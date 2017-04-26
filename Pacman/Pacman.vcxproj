@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blinky.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
@@ -88,9 +89,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SDL-1.2.15\include\SDL.h" />
+    <ClInclude Include="Blinky.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="Misc.h" />
+    <ClInclude Include="MoveDirection.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Texture.h" />

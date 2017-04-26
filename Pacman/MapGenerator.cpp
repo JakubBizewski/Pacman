@@ -44,6 +44,9 @@ bool MapGenerator::Load(std::string path)
 				case 'p':
 					newObject = new Pacman(tile, pTextureManager->Get("pacman"));
 					break;
+				case 'b':
+					newObject = new Blinky(tile, pTextureManager->Get("blinky"));
+					break;
 			}
 
 			// If the object was created, add it to the vector
