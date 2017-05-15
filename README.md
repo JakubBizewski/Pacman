@@ -1,5 +1,5 @@
 # Pacman
-This project's aim to create Pacman using C++ and SDL library.
+This projects aim is to create Pacman using C++ and SDL library.
 
 ## Compile
 In order to compile the project, you have to:
