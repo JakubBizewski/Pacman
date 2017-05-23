@@ -9,6 +9,7 @@
 #include "TileGraph.h"
 #include "Point.h"
 #include "MoveDirection.h"
+#include "PathFinder.h"
 
 class Blinky : public GameObject
 {
@@ -73,6 +74,8 @@ private:
 
 	Tile* currTile;
 	Tile* nextTile;
+
+	std::vector<Tile*> path;
 
 	SDL_Rect collider;
 };

@@ -25,7 +25,8 @@ public:
 	// 5 - SE
 	// 6 - SW
 	// 7 - NW
-	std::array<Tile*, 8> GetNeighbours(Tile* tile);
+	std::array<Tile*, 4> GetNeighbours(Tile* tile);
+	std::array<Tile*, 8> GetNeighboursDiag(Tile* tile);
 
 private:
 	Tile* tiles;

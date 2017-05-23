@@ -80,6 +80,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="Pacman.cpp" />
+    <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -95,7 +96,9 @@
     <ClInclude Include="Misc.h" />
     <ClInclude Include="MoveDirection.h" />
     <ClInclude Include="Pacman.h" />
+    <ClInclude Include="PathFinder.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Tile.h" />

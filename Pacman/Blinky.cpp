@@ -34,21 +34,16 @@ Blinky::~Blinky()
 
 void Blinky::Update()
 {
-	/*switch (moveDir)
+	if (!path.size())
 	{
-	case MOVE_UP:
-		position.y = std::max(position.y - Velocity, nextTile->GetPosition().y * Tile::Height);
-		break;
-	case MOVE_DOWN:
-		position.y = std::min(position.y + Velocity, nextTile->GetPosition().y * Tile::Height);
-		break;
-	case MOVE_LEFT:
-		position.x = std::max(position.x - Velocity, nextTile->GetPosition().x * Tile::Width);
-		break;
-	case MOVE_RIGHT:
-		position.x = std::min(position.x + Velocity, nextTile->GetPosition().x * Tile::Width);
-		break;
-	}*/
+		PathFinder astar(tileGraph);
+		path = astar.CalculateRoute(currTile, tileGraph->GetTileAt(10, 11));
+
+		for (auto tile : path)
+		{
+			printf("%d - %d\n", tile->GetPosition().x, tile->GetPosition().y);
+		}
+	}
 }
 
 void Blinky::Render()
