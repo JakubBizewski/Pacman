@@ -1,5 +1,5 @@
 xxxxxxxxxxxxxxxxxxxx
-x..................x
+x.b................x
 x.xxxxxxxxxxxxxxxx.x
 x.x              x.x
 x.xxxxxxxxxxxxxxxx.x
@@ -8,7 +8,7 @@ x.x.x.x.x.x.x.x.x..x
 x.x.x.x.x.x.x.x.xxxx
 x.x.x.x.x.x.x.x.x..x
 x.xxxxxxxxxxxxxxx..x
-x..................x
+x.............x....x
 xxxxx...xxx...xxxxxx
 x.......xxx........x
 x.......xxx........x

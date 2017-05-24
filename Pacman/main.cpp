@@ -92,6 +92,10 @@ bool loadMedia()
 	if (!pacmanTexture->LoadFromImage("./Resources/PacMan.bmp"))
 		return false;
 
+	Texture* blinkyTexture = new Texture();
+	if (!blinkyTexture->LoadFromImage("./Resources/blinky.bmp"))
+		return false;
+
 	// Set static variables for objects
 	// NOTE: Should this be changed?
 	GameObject::tileGraph = &gTileGraph;
@@ -100,6 +104,7 @@ bool loadMedia()
 	gTextureManager.Add("wall", wallTexture);
 	gTextureManager.Add("point", pointTexture);
 	gTextureManager.Add("pacman", pacmanTexture);
+	gTextureManager.Add("blinky", blinkyTexture);
 
 	Wall::CreateClips();
 

@@ -4,11 +4,13 @@
 #include <vector>
 #include <fstream>
 
-#include "Wall.h"
 #include "TileGraph.h"
+#include "TextureManager.h"
+
+#include "Wall.h"
 #include "Point.h"
 #include "Pacman.h"
-#include "TextureManager.h"
+#include "Blinky.h"
 
 class GameObject;
 
