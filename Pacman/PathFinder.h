@@ -11,7 +11,7 @@ class PathFinder
 public:
 	PathFinder(TileGraph* tileGraph);
 
-	std::vector<Tile*>* CalculateRoute(Tile* start, Tile* goal);
+	std::vector<Tile*> CalculateRoute(Tile* start, Tile* goal);
 
 private:
 	static inline float Heuristic(Tile* a, Tile* b);

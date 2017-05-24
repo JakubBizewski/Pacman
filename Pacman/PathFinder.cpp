@@ -5,7 +5,7 @@ PathFinder::PathFinder(TileGraph* tileGraph)
 	pTileGraph = tileGraph;
 }
 
-std::vector<Tile*>* PathFinder::CalculateRoute(Tile* start, Tile* goal)
+std::vector<Tile*> PathFinder::CalculateRoute(Tile* start, Tile* goal)
 {
 	std::unordered_map<Tile*, Tile*> came_from;
 	std::unordered_map<Tile*, float> cost_so_far;
@@ -27,8 +27,10 @@ std::vector<Tile*>* PathFinder::CalculateRoute(Tile* start, Tile* goal)
 		for (auto next : pTileGraph->GetNeighbours(current)) {
 			float new_cost = cost_so_far[current] + 1;
 
-			if (next != NULL && (!cost_so_far.count(next) || new_cost < cost_so_far[next]) && next->GetWall() == NULL)
+			if (next != NULL && (!cost_so_far.count(next) || new_cost < cost_so_far[next]))
 			{
+				if (next->GetWall() != NULL) new_cost = INFINITY;
+
 				cost_so_far[next] = new_cost;
 				float priority = new_cost + Heuristic(next, goal);
 				frontier.put(next, priority);
@@ -50,7 +52,7 @@ std::vector<Tile*>* PathFinder::CalculateRoute(Tile* start, Tile* goal)
 
 	reverse(path.begin(), path.end());
 
-	return &path;
+	return path;
 }
 
 inline float PathFinder::Heuristic(Tile* a, Tile* b)

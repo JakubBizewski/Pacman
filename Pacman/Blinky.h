@@ -10,6 +10,7 @@
 #include "Point.h"
 #include "MoveDirection.h"
 #include "PathFinder.h"
+#include "Pacman.h"
 
 class Blinky : public GameObject
 {
@@ -19,7 +20,7 @@ public:
 	static const int Height = 25;
 
 	// Movement per frame
-	static const int Velocity = 3;
+	static const int Velocity = 1.5;
 
 	Blinky(Tile* tile, Texture* texture);
 	~Blinky();
@@ -64,6 +65,8 @@ private:
 	// Check if given collider is colliding with another collider
 	bool CheckForCollision(const SDL_Rect &collider, const SDL_Rect &otherCollider);
 
+	bool HasPositionChanged(SDL_Point firstPos, SDL_Point secondPoint);
+
 	Texture* blinkyTexture;
 
 	MoveDirection moveDir;
@@ -76,6 +79,8 @@ private:
 	Tile* nextTile;
 
 	std::vector<Tile*> path;
+	SDL_Point lastPacmanPos;
+	unsigned int pathStage;
 
 	SDL_Rect collider;
 };

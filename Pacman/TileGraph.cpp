@@ -94,6 +94,18 @@ std::array<class Tile*, 8> TileGraph::GetNeighboursDiag(class Tile* tile)
 	return neighbours;
 }
 
+Pacman* TileGraph::GetPacman()
+{
+	for (unsigned int i = 0; i < width * height; i++) {
+		Tile tile = tiles[i];
+
+		if (tile.GetPacman() != NULL)
+			return tile.GetPacman();
+	}
+
+	return NULL;
+}
+
 int TileGraph::GetIndex(int x, int y)
 {
 	if (x >= width || y >= height)

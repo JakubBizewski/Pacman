@@ -1,9 +1,9 @@
 xxxxxxxxxxxxxxxxxxxx
-x.b................x
+x..................x
 x.xxxxxxxxxxxxxxxx.x
 x.x              x.x
 x.xxxxxxxxxxxxxxxx.x
-xp.................x
+x.....b.....p......x
 x.x.x.x.x.x.x.x.x..x
 x.x.x.x.x.x.x.x.xxxx
 x.x.x.x.x.x.x.x.x..x

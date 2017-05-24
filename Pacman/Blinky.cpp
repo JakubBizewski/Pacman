@@ -34,16 +34,49 @@ Blinky::~Blinky()
 
 void Blinky::Update()
 {
-	if (!path.size())
-	{
+	if (currTile == nextTile) {
 		PathFinder astar(tileGraph);
-		path = astar.CalculateRoute(currTile, tileGraph->GetTileAt(10, 11));
+		path = astar.CalculateRoute(currTile, tileGraph->GetPacman()->GetTile());
 
-		for (auto tile : path)
-		{
-			printf("%d - %d\n", tile->GetPosition().x, tile->GetPosition().y);
-		}
+		nextTile = path[1];
+
+		if (position.x < nextTile->GetPosition().x * Tile::Width)
+			moveDir = MOVE_RIGHT;
+
+		else if (position.x > nextTile->GetPosition().x * Tile::Width)
+			moveDir = MOVE_LEFT;
+
+		else if (position.y > nextTile->GetPosition().y * Tile::Width)
+			moveDir = MOVE_UP;
+
+		else if (position.y < nextTile->GetPosition().y * Tile::Width)
+			moveDir = MOVE_DOWN;
 	}
+
+	switch (moveDir)
+	{
+	case MOVE_UP:
+		position.y = std::max(position.y - Velocity, nextTile->GetPosition().y * Tile::Height);
+		break;
+	case MOVE_DOWN:
+		position.y = std::min(position.y + Velocity, nextTile->GetPosition().y * Tile::Height);
+		break;
+	case MOVE_LEFT:
+		position.x = std::max(position.x - Velocity, nextTile->GetPosition().x * Tile::Width);
+		break;
+	case MOVE_RIGHT:
+		position.x = std::min(position.x + Velocity, nextTile->GetPosition().x * Tile::Width);
+		break;
+	}
+
+	collider.x = position.x;
+	collider.y = position.y;
+
+	if ((moveDir == MOVE_DOWN || moveDir == MOVE_UP) && position.y == nextTile->GetPosition().y * Tile::Height)
+		SetTile(nextTile);
+
+	if ((moveDir == MOVE_LEFT || moveDir == MOVE_RIGHT) && position.x == nextTile->GetPosition().x * Tile::Width)
+		SetTile(nextTile);
 }
 
 void Blinky::Render()
@@ -120,6 +153,14 @@ bool Blinky::CheckForCollision(const SDL_Rect &collider, const SDL_Rect &otherCo
 	}
 
 	return true;
+}
+
+bool Blinky::HasPositionChanged(SDL_Point firstPos, SDL_Point secondPoint)
+{
+	if (firstPos.x != secondPoint.x || firstPos.y != secondPoint.y)
+		return true;
+
+	return false;
 }
 
 void Blinky::Delete()
