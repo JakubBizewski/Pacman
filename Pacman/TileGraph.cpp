@@ -1,4 +1,5 @@
 #include "TileGraph.h"
+#include <algorithm>
 
 TileGraph::TileGraph()
 {
@@ -59,7 +60,22 @@ Tile* TileGraph::GetTileAt(int x, int y)
 	return &tiles[index];
 }
 
-std::array<Tile*, 8> TileGraph::GetNeighbours(Tile* tile)
+std::array<Tile*, 4> TileGraph::GetNeighbours(Tile* tile)
+{
+	std::array<Tile*, 4> neighbours;
+
+	int x = tile->GetPosition().x;
+	int y = tile->GetPosition().y;
+
+	neighbours[0] = GetTileAt(x, y + 1);		// N
+	neighbours[1] = GetTileAt(x + 1, y);		// E
+	neighbours[2] = GetTileAt(x, y - 1);		// S
+	neighbours[3] = GetTileAt(x - 1, y);		// W
+
+	return neighbours;
+}
+
+std::array<class Tile*, 8> TileGraph::GetNeighboursDiag(class Tile* tile)
 {
 	std::array<Tile*, 8> neighbours;
 
@@ -76,6 +92,18 @@ std::array<Tile*, 8> TileGraph::GetNeighbours(Tile* tile)
 	neighbours[7] = GetTileAt(x + 1, y - 1);	// NW
 
 	return neighbours;
+}
+
+Pacman* TileGraph::GetPacman()
+{
+	for (unsigned int i = 0; i < width * height; i++) {
+		Tile tile = tiles[i];
+
+		if (tile.GetPacman() != NULL)
+			return tile.GetPacman();
+	}
+
+	return NULL;
 }
 
 int TileGraph::GetIndex(int x, int y)

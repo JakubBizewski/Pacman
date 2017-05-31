@@ -3,6 +3,8 @@
 #include <array>
 #include "Tile.h"
 
+class Pacmam;
+
 class TileGraph
 {
 public:
@@ -25,7 +27,10 @@ public:
 	// 5 - SE
 	// 6 - SW
 	// 7 - NW
-	std::array<Tile*, 8> GetNeighbours(Tile* tile);
+	std::array<Tile*, 4> GetNeighbours(Tile* tile);
+	std::array<Tile*, 8> GetNeighboursDiag(Tile* tile);
+
+	Pacman* GetPacman();
 
 private:
 	Tile* tiles;

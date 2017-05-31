@@ -61,7 +61,7 @@ Wall::Wall(Tile* tile, Texture* texture)
 
 	UpdateConnections();
 
-	std::array<Tile*, 8> neighbours = tileGraph->GetNeighbours(this->currTile);
+	std::array<Tile*, 4> neighbours = tileGraph->GetNeighbours(this->currTile);
 	for (int i = 0; i < 4; i++) {
 		if (CheckForWall(neighbours[i]))
 			neighbours[i]->GetWall()->UpdateConnections();
@@ -90,7 +90,7 @@ void Wall::SetTile(Tile* newTile)
 
 void Wall::UpdateConnections()
 {
-	std::array<Tile*, 8> neighbours = tileGraph->GetNeighbours(this->currTile);
+	std::array<Tile*, 4> neighbours = tileGraph->GetNeighbours(this->currTile);
 
 	connections = 0;
 
