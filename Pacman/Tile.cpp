@@ -39,6 +39,11 @@ void Tile::SetPoint(Point* point)
 	pPoint = point;
 }
 
+void Tile::SetBlinky(Blinky* blinky)
+{
+	pBlinky = blinky;
+}
+
 Pacman* Tile::GetPacman()
 {
 	return pPacman;
@@ -52,6 +57,11 @@ Wall* Tile::GetWall()
 Point* Tile::GetPoint()
 {
 	return pPoint;
+}
+
+Blinky* Tile::GetBlinky()
+{
+	return pBlinky;
 }
 
 SDL_Point Tile::GetPosition()

@@ -1,14 +1,14 @@
 xxxxxxxxxxxxxxxxxxxx
 x..................x
 x.xxxxxxxxxxxxxxxx.x
-x.x              x.x
+x.x       b      x.x
 x.xxxxxxxxxxxxxxxx.x
-x.....b.....p......x
+x..................x
 x.x.x.x.x.x.x.x.x..x
 x.x.x.x.x.x.x.x.xxxx
 x.x.x.x.x.x.x.x.x..x
 x.xxxxxxxxxxxxxxx..x
-x.............x....x
+x.....p.......x....x
 xxxxx...xxx...xxxxxx
 x.......xxx........x
 x.......xxx........x

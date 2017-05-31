@@ -20,7 +20,7 @@ public:
 	static const int Height = 25;
 
 	// Movement per frame
-	static const int Velocity = 1.5;
+	static const int Velocity = 2;
 
 	Blinky(Tile* tile, Texture* texture);
 	~Blinky();
@@ -65,7 +65,10 @@ private:
 	// Check if given collider is colliding with another collider
 	bool CheckForCollision(const SDL_Rect &collider, const SDL_Rect &otherCollider);
 
+	// Check if the positions are diffrent
 	bool HasPositionChanged(SDL_Point firstPos, SDL_Point secondPoint);
+
+	static bool AvoidInPathFinder(Tile* tile);
 
 	Texture* blinkyTexture;
 
@@ -80,7 +83,6 @@ private:
 
 	std::vector<Tile*> path;
 	SDL_Point lastPacmanPos;
-	unsigned int pathStage;
 
 	SDL_Rect collider;
 };
